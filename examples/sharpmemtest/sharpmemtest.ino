@@ -19,10 +19,11 @@ All text above, and the splash screen must be included in any redistribution
 #include <Adafruit_GFX.h>
 #include <Adafruit_SharpMem.h>
 
-// any pins can be used
-#define SCK 10
-#define MOSI 11
-#define SS 13
+SYSTEM_THREAD(ENABLED);
+
+#define SCK A3
+#define MOSI A5
+#define SS A2
 
 Adafruit_SharpMem display(SCK, MOSI, SS);
 
@@ -31,12 +32,10 @@ Adafruit_SharpMem display(SCK, MOSI, SS);
 
 void setup(void) 
 {
-  Serial.begin(9600);
-  Serial.println("Hello!");
-
-  // start & clear the display
   display.begin();
+  display.init();
   display.clearDisplay();
+  display.setRotation(3);
 
   // draw a single pixel
   display.drawPixel(10, 10, BLACK);
