@@ -1,3 +1,6 @@
+# A Particle.io Photon compatible version of the original library described below:
+
+
 This is an Arduino library for our Monochrome SHARP Memory Displays
 
   Pick one up today in the adafruit shop!

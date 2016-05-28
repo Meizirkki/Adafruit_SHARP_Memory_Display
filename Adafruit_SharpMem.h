@@ -16,11 +16,7 @@ BSD license, check license.txt for more information
 All text above, and the splash screen must be included in any redistribution
 *********************************************************************/
 
-#if ARDUINO >= 100
- #include "Arduino.h"
-#else
- #include "WProgram.h"
-#endif
+#include "application.h"
  
 #include <Adafruit_GFX.h>
 #ifdef __AVR
@@ -30,13 +26,14 @@ All text above, and the splash screen must be included in any redistribution
 #endif
 
 // LCD Dimensions
-#define SHARPMEM_LCDWIDTH       (96)
-#define SHARPMEM_LCDHEIGHT      (96) 
+#define SHARPMEM_LCDWIDTH       (400)
+#define SHARPMEM_LCDHEIGHT      (240) 
 
 class Adafruit_SharpMem : public Adafruit_GFX {
  public:
   Adafruit_SharpMem(uint8_t clk, uint8_t mosi, uint8_t ss);
   void begin(void);
+  void init(void);
   void drawPixel(int16_t x, int16_t y, uint16_t color);
   uint8_t getPixel(uint16_t x, uint16_t y);
   void clearDisplay();
@@ -44,14 +41,7 @@ class Adafruit_SharpMem : public Adafruit_GFX {
 
  private:
   uint8_t _ss, _clk, _mosi;
-#ifdef __AVR__
-  volatile uint8_t *dataport, *clkport;
   uint8_t _sharpmem_vcom, datapinmask, clkpinmask;
-#endif
-#if defined(__SAM3X8E__) || defined(ARDUINO_ARCH_SAMD)
-    volatile RwReg *dataport, *clkport;
-    uint32_t _sharpmem_vcom, datapinmask, clkpinmask;
-#endif
   
   void sendbyte(uint8_t data);
   void sendbyteLSB(uint8_t data);
